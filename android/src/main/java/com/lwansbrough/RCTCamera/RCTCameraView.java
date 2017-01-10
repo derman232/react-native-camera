@@ -177,8 +177,14 @@ public class RCTCameraView extends ViewGroup {
                 viewfinderHeight = (int) height;
         }
 
-        int viewFinderPaddingX = (int) ((width - viewfinderWidth) / 2);
-        int viewFinderPaddingY = (int) ((height - viewfinderHeight) / 2);
+        //int viewFinderPaddingX = (int) ((width - viewfinderWidth) / 2);
+        //int viewFinderPaddingY = (int) ((height - viewfinderHeight) / 2);
+        
+        // do not attempt to 'recenter' the view finder.
+        // simply render it from the top left hand corner.
+        // ensures that the preview and final picture taken are the same.
+        int viewFinderPaddingX = 0;
+        int viewFinderPaddingY = 0;
 
         this._viewFinder.layout(viewFinderPaddingX, viewFinderPaddingY, viewFinderPaddingX + viewfinderWidth, viewFinderPaddingY + viewfinderHeight);
         this.postInvalidate(this.getLeft(), this.getTop(), this.getRight(), this.getBottom());
