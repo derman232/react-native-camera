@@ -501,6 +501,18 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
         }
     }
 
+    @ReactMethod
+    public void startPreview(final ReadableMap options) {
+        Camera camera = RCTCamera.getInstance().acquireCameraInstance(options.getInt("type"));
+        camera.startPreview();
+    }
+
+    @ReactMethod
+    public void stopPreview(final ReadableMap options) {
+        Camera camera = RCTCamera.getInstance().acquireCameraInstance(options.getInt("type"));
+        camera.stopPreview();
+    }
+
     private void captureWithOrientation(final ReadableMap options, final Promise promise, int deviceOrientation) {
         Camera camera = RCTCamera.getInstance().acquireCameraInstance(options.getInt("type"));
         if (null == camera) {
@@ -531,7 +543,6 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
             @Override
             public void onPictureTaken(final byte[] data, Camera camera) {
                 camera.stopPreview();
-                camera.startPreview();
 
                 AsyncTask.execute(new Runnable() {
                     @Override

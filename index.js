@@ -42,7 +42,7 @@ function convertNativeProps(props) {
   if (typeof props.captureMode === 'string') {
     newProps.captureMode = Camera.constants.CaptureMode[props.captureMode];
   }
-  
+
   if (typeof props.captureTarget === 'string') {
     newProps.captureTarget = Camera.constants.CaptureTarget[props.captureTarget];
   }
@@ -234,6 +234,28 @@ export default class Camera extends Component {
 
     return CameraManager.capture(options);
   }
+
+  startPreview() {
+    if (Platform.OS === 'android') {
+      const props = convertNativeProps(this.props);
+      CameraManager.startPreview({
+        type: props.type
+      });
+    } else {
+      CameraManager.startPreview();
+    }
+  }
+
+  stopPreview() {
+    if (Platform.OS === 'android') {
+      const props = convertNativeProps(this.props);
+      CameraManager.stopPreview({
+        type: props.type
+      });
+    } else {
+      CameraManager.stopPreview();
+    }
+  };
 
   stopCapture() {
     if (this.state.isRecording) {
